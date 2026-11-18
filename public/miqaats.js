@@ -1,0 +1,128 @@
+// Dawoodi Bohra miqaats, keyed by Hijri date (they repeat every Hijri year).
+// Kept in its own file so you can edit it without touching the app logic or your saved events.
+// Format: [Hijri month 1-12, Hijri day, "Name", type]
+//   type "e" = Eid / major day, "m" = Milad / Shahadat / Lailat / Shab, "a" = Ayyam marker, "u" = Urus
+// Compiled from published Dawoodi Bohra jamaat calendars for 1447-1449H. Not exhaustive: check against
+// your official calendar and add anything missing.
+const BOHRA_MIQAATS = [
+  // 1 Muharram
+  [1,1,"Hijri New Year","e"],
+  [1,7,"Urus Syedna Ismail Badruddin (AQ)","u"],
+  [1,10,"Yawme Ashura","e"],
+  [1,10,"Shahadat Imam Hussain (SA)","m"],
+  [1,10,"Urus Syedna Zoeb bin Musa (AQ)","u"],
+  [1,12,"Suyum Imam Hussain (SA)","m"],
+  [1,16,"Urus Syedna Hatim bin Syedna Ibrahim (AQ)","u"],
+  [1,17,"Shahadat Imam Ali Zainulabedin (SA)","m"],
+  [1,17,"Urus Syedna Ibrahim Vajihuddin (AQ)","u"],
+  [1,23,"Urus Syedi Hasan Fir Saheb Shahid","u"],
+  [1,27,"Urus Syedi Fakhruddin Shahid (AQ)","u"],
+  // 2 Safar
+  [2,1,"Urus Syedna Ali bin Syedna Hussain (AQ)","u"],
+  [2,3,"Urus Syedna Ali Shamsuddin bin Syedna Abdullah (AQ)","u"],
+  [2,4,"Urus Syedna Abdul Tayyib Zakiyuddin (AQ)","u"],
+  [2,8,"Urus Syedna Khattab bin Hasan Hamdani (AQ)","u"],
+  [2,12,"Urus Syedna Ahmed Hamiduddin Kirmani (RA)","u"],
+  [2,20,"Chehlum Imam Hussain (SA)","m"],
+  [2,22,"Urus Syedna Hussain bin Syedna Ali (AQ)","u"],
+  [2,27,"Urus Syedna Mohammed Izziuddin (AQ)","u"],
+  // 3 Rabi al-Awwal
+  [3,2,"Urus Syedna Abdul Tayyib Zakiyuddin bin Syedna Dawood bin Qutub Shah (AQ)","u"],
+  [3,10,"Urus Syedna Abdullah Badruddin (AQ)","u"],
+  [3,11,"Eid Milad un-Nabi (SA)","e"],
+  [3,12,"Ayyam al-Ta'abudaat begins (40 days)","a"],
+  [3,12,"Urus Ummul Mumineen Amatullah Aaisaheba (QR)","u"],
+  [3,16,"Urs Mubarak Syedna Mohammed Burhanuddin (RA)","m"],
+  [3,22,"Urus Syedna Ali bin Hanzala (AQ)","u"],
+  [3,25,"Urus Syedna Ali Shamsuddin bin Mawlai Hasan (AQ)","u"],
+  // 4 Rabi al-Aakhar
+  [4,4,"Milad Imam uz-Zaman (SA)","m"],
+  [4,16,"Urus Syedna Jalal Shamsuddin bin Hasan (AQ)","u"],
+  [4,20,"Milad Syedna Mohammed Burhanuddin (RA)","m"],
+  [4,20,"Ayyam al-Ta'abudaat","a"],
+  [4,22,"Urus Syedna Musa Kalimuddin (AQ)","u"],
+  [4,27,"Urus Syedna Dawood Burhanuddin bin Ajab Shah (AQ)","u"],
+  // 5 Jumada al-Ula
+  [5,10,"Shahadat Maulatena Fatema tuz Zahra (SA)","m"],
+  // 6 Jumada al-Ukhra
+  [6,15,"Urus Syedna Dawood Burhanuddin bin Qutub Shah (AQ)","u"],
+  [6,18,"Urus Syedna Yusuf Najmuddin (AQ)","u"],
+  [6,23,"Urus Syedna Ismail Badruddin bin Mawlai Raj (AQ)","u"],
+  [6,27,"Urus Syedna Qutub Khan Qutbuddin Shahid (AQ)","u"],
+  [6,27,"Urus Syedna Lamak bin Malik (RA)","u"],
+  [6,28,"Urus Syedna Ahmed bin Mubarak (AQ)","u"],
+  [6,28,"Urus Syedna Yahya bin Syedna Lamak (AQ)","u"],
+  [6,29,"Urus Syedna Mohammed Badruddin (AQ)","u"],
+  [6,29,"Urus Syedna Qadi Numan bin Mohammed (AQ)","u"],
+  // 7 Rajab
+  [7,4,"Urus Syedna Noor Mohammed Nooruddin (AQ)","u"],
+  [7,7,"Urus Syedna Shaikh Adam Safiyuddin (AQ)","u"],
+  [7,13,"Milad Amir ul-Mumineen (SA)","e"],
+  [7,14,"Urus Syedna Abdul Mutalib Najmuddin (AQ)","u"],
+  [7,15,"Salaat uz-Zawaal","m"],
+  [7,18,"Urus Syedna Ali Shamsuddin (AQ)","u"],
+  [7,19,"Urus Syedna Taher Saifuddin (AQ)","u"],
+  [7,26,"Urus Syedna Abdulqadir Najmuddin (AQ)","u"],
+  [7,27,"Shab-e-Meraaj","m"],
+  [7,27,"Yawm al-Mab'ath","e"],
+  // 8 Shaban
+  [8,1,"Urus Syedna Hebatullah Muayyadfiddin (AQ)","u"],
+  [8,15,"Shab-e-Baraat","m"],
+  [8,15,"Urus Syedna Hasan Badruddin (AQ)","u"],
+  [8,16,"Urus Syedna Ibrahim bin Husain (AQ)","u"],
+  [8,22,"Urus Moulatena Hurratul Maleka (RA)","u"],
+  [8,29,"Urus Syedna Ali bin Mawla Mohammed al-Walid (AQ)","u"],
+  // 9 Ramadan
+  [9,1,"Ramadan al-Moazzam begins (Pehli raat)","e"],
+  [9,1,"Urus Shaikh Dawood Bhaisaheb","u"],
+  [9,2,"Urus Syedi Wali Bhaisaheb bin Syedi Habibullah","u"],
+  [9,4,"Urus Syedi Tayyib Bhaisaheb Zainuddin (AQ)","u"],
+  [9,8,"Urus Syedi Fazal Bhaisaheb Qutubuddin bin Syedna Abdullah (AQ)","u"],
+  [9,9,"Urus Syedna Abdullah Fakhruddin (AQ)","u"],
+  [9,16,"Urus Syedi Hebatullah Jamaluddin","u"],
+  [9,17,"Lailat al-Fahdil","m"],
+  [9,19,"Lailat al-Fahdil","m"],
+  [9,19,"Shahadat Amir ul-Mumineen (SA)","m"],
+  [9,19,"Urus Syedna Mohammed Ezzuddin (AQ)","u"],
+  [9,21,"Lailat al-Fahdil","m"],
+  [9,21,"Wafaat Amir ul-Mumineen (SA)","m"],
+  [9,23,"Lailat al-Qadr","m"],
+  [9,23,"Milad Dai az-Zamaan, Syedna Mufaddal Saifuddin (TUS)","m"],
+  [9,30,"Lailat al-Thala'theen","m"],
+  // 10 Shawwal
+  [10,1,"Lailat ul-Eid ul-Fitr","m"],
+  [10,1,"Yawm al-Eid ul-Fitr","e"],
+  [10,3,"Urus Shehzadi Sakina Bhensaheba","u"],
+  [10,5,"Urus Syedi Abdul Qadir Hakimuddin (AQ)","u"],
+  [10,6,"Urus Syedna Hasan Badruddin (AQ)","u"],
+  [10,7,"Urus Syedna Mohammed bin Taher (AQ)","u"],
+  [10,8,"Urus Syedna Abbas bin Syedna Mohammed (AQ)","u"],
+  [10,9,"Urus Syedna Qasim Khan Zainuddin (AQ)","u"],
+  [10,10,"Urus Syedna Ibrahim bin Syedna Husain (AQ)","u"],
+  [10,10,"Urus Syedna Husain Husamuddin (AQ)","u"],
+  [10,27,"Urus Syedi Abdul Qadir Hakimuddin (AQ)","u"],
+  // 11 Zilqad
+  [11,11,"Urus Syedna Ali bin Mohammed Sulayhi (RA)","u"],
+  [11,12,"Urus Syedna Abdeali Saifuddin (AQ)","u"],
+  [11,19,"Urus Syedna Idris Imaduddin (AQ)","u"],
+  [11,21,"Urus Syedna Ali Shamsuddin (AQ)","u"],
+  [11,25,"Urus Syedna Ali Shamsuddin bin Syedna Hatim (AQ)","u"],
+  [11,27,"Zikra Milad","m"],
+  // 12 Zilhaj
+  [12,1,"Urus Syedna Mohammed bin Syedna Hatim (AQ)","u"],
+  [12,9,"Yawm ul-Arafa","e"],
+  [12,10,"Lailat al-Eid ul-Adha","m"],
+  [12,10,"Yawm al-Eid ul-Adha","e"],
+  [12,16,"Urus Syedna Yusuf Najmuddin bin Sulaiman (AQ)","u"],
+  [12,18,"Yawm al-Eid-e-Gadhir-e-Khum","e"],
+  [12,27,"Urus Syedna Abdul Husain Husamuddin (AQ)","u"],
+  [12,27,"Urus Syedna Mohammed Burhanuddin (AQ)","u"],
+];
+
+// Ayyam (multi-day periods): [start month, start day, end month, end day, "Name"]  (same month only)
+const BOHRA_AYYAM = [
+  [1,1,1,10,"Ashara Mubaraka"],
+  [7,13,7,15,"Ayyam ul-Beez"],
+  [7,17,7,19,"Ayyam al-Barakaat ul-Khuldiyah"],
+  [12,11,12,13,"Takbira"],
+];

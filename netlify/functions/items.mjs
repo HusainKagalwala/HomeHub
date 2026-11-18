@@ -34,6 +34,30 @@ function clean(type, b, id) {
   return { id, type, title, who, date, endDate, time, endTime, notes, updatedAt: now };
 }
 
+// DATA SAFETY: your events, reminders and groceries live in Netlify Blobs, which is separate from the
+// site's code. Deploying a new version never touches them. Do NOT rename the store ("family-hub") or the
+// key format ("<type>:<id>"), or existing data will appear to vanish.
+
+// One-time import of events saved by the very first version of this app (store "calendar").
+// The old data is copied, never deleted.
+async function migrateLegacy(store) {
+  try {
+    if (await store.get("meta:legacy-migrated")) return;
+    const old = getStore({ name: "calendar", consistency: "strong" });
+    const { blobs } = await old.list();
+    for (const b of blobs) {
+      const it = await old.get(b.key, { type: "json" });
+      if (!it || !it.title || !DATE_RE.test(it.date || "")) continue;
+      const id = ID_RE.test(it.id || "") ? it.id : b.key;
+      if (!ID_RE.test(id)) continue;
+      if (!(await store.get(`event:${id}`))) await store.setJSON(`event:${id}`, { ...it, id, type: "event" });
+    }
+    await store.setJSON("meta:legacy-migrated", { type: "meta", at: new Date().toISOString() });
+  } catch (e) {
+    console.error("Legacy migration skipped:", e);
+  }
+}
+
 export default async (req) => {
   const passcode = process.env.CALENDAR_PASSCODE;
   if (!passcode) return json({ error: "CALENDAR_PASSCODE is not set in Netlify environment variables." }, 500);
@@ -42,6 +66,7 @@ export default async (req) => {
   const store = getStore({ name: "family-hub", consistency: "strong" });
 
   if (req.method === "GET") {
+    await migrateLegacy(store);
     const { blobs } = await store.list();
     const all = (await Promise.all(blobs.map((b) => store.get(b.key, { type: "json" })))).filter(Boolean);
     return json({
@@ -67,6 +92,7 @@ export default async (req) => {
     const type = url.searchParams.get("type");
     if (!TYPES.includes(type)) return json({ error: "Bad type" }, 400);
     if (url.searchParams.get("done") === "1") {
+      if (type !== "grocery") return json({ error: "Bulk clear is only allowed for groceries" }, 400);
       const { blobs } = await store.list({ prefix: `${type}:` });
       for (const b of blobs) {
         const it = await store.get(b.key, { type: "json" });
